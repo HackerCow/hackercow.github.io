@@ -1,1 +1,40 @@
-Hello World
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Twitch Chat Spam Generator</title>
+    </head>
+    <body>
+        <div align="center">
+            <h1>Twitch Chat Spam Generator</h1>
+            <br>
+            <input type="text" id="message" placeholder="Message" style="text-align: center"></input><br/><br/>
+            <input type="text" id="emote" placeholder="Emote" style="text-align: center"></input><br/><br/>
+            <button id="generate">Generate!</button><br/><br/>
+            <input type="text" id="textout" style="text-align: center;" readonly placeholder="Output"></input>
+        </div>
+        
+        <script src="jquery-2.1.4.min.js"></script>
+        <script>
+            function updateOutput(){
+                msgval = $("#message").val();
+                emoteval = $("#emote").val();
+                
+                if(msgval == "" || emoteval == "") return;
+                
+                output = "";
+                for(var i = 0; i < msgval.length; i++) {
+                    output += emoteval + " " + msgval[i].toUpperCase() + " ";
+                }
+                output += emoteval;
+                $("#textout").val(output);
+                $("#textout").focus();
+                $("#textout").select();
+                document.execCommand('copy');
+            }
+            
+            $(document).ready(function(){
+                $("#generate").mouseup(updateOutput);
+            });
+        </script>
+    </body>
+</html>
