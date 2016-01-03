@@ -6,7 +6,7 @@
     </head>
     <body>
         <div align="center">
-            <h1><img src="pogchamp.png">Twitch Chat Spam Generator<img src="pogchamp.png"></h1>
+            <h1><img class="emote">Twitch Chat Spam Generator<img class="emote"></h1>
             <br>
             <input type="text" id="message" placeholder="Message" style="text-align: center"></input><br/><br/>
             <input type="text" id="emote" placeholder="Emote" style="text-align: center"></input><br/><br/>
@@ -35,6 +35,19 @@
             
             $(document).ready(function(){
                 $("#generate").mouseup(updateOutput);
+                
+                $.ajax({
+                    url: 'https://twitchemotes.com/api_cache/v2/global.json',
+                    success: function(json) {
+                        var template = "https:" + json.template.medium;
+                        var index = Math.floor(Math.random() * Object.keys(json.emotes).length);
+                        var entry = json.emotes[Object.keys(json.emotes)[index]];
+                        
+                        var imgurl = template.replace("{image_id}", entry.image_id);
+                        $(".emote").attr("src", imgurl);
+                        console.log(imgurl);
+                    }
+                });
             });
         </script>
     </body>
