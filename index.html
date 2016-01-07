@@ -6,27 +6,56 @@
     </head>
     <body>
         <div align="center">
-            <h1><img class="emote">Twitch Chat Spam Generator<img class="emote"></h1>
+            <h1><img class="emote"/>Twitch Chat Spam Generator<img class="emote"/></h1>
             <br>
+            <h3>Message</h3>
             <input type="text" id="message" placeholder="Message" style="text-align: center"></input><br/><br/>
+            <h3>Emote</h3>
             <input type="text" id="emote" placeholder="Emote" style="text-align: center"></input><br/><br/>
+            <h3>Split by:</h3>
+            <form id="form_split">
+            <input type="radio" id="split_words" checked name="splitmode"> <label for="split_words"> Words</label>
+            <input type="radio" id="split_letters" name="splitmode"> <label for="split_words"> Letters</label><br/><br/><br/><br/>
+            </form>
             <button id="generate">Generate!</button><br/><br/>
             <input type="text" id="textout" style="text-align: center;" readonly placeholder="Output"></input>
         </div>
         
         <script src="jquery-2.1.4.min.js"></script>
         <script>
+            function splitWords(msg, emote){
+                output = "";
+                splitval = msg.split(" ");
+                for(var i = 0; i < splitval.length; i++) {
+                    output += emote + " " + splitval[i].toUpperCase() + " ";
+                }
+                output += emote;
+                return output;
+            }
+            
+            function splitLetters(msg, emote){
+                msg = msg.replace(",", "").replace(".","").replace(" ","");
+                output = "";
+                for(var i = 0; i < msg.length; i++) {
+                    output += emote + " " + msg[i].toUpperCase() + " ";
+                }
+                output += emote;
+                return output;
+            }
+            
             function updateOutput(){
                 msgval = $("#message").val();
                 emoteval = $("#emote").val();
                 
                 if(msgval == "" || emoteval == "") return;
                 
-                output = "";
-                for(var i = 0; i < msgval.length; i++) {
-                    output += emoteval + " " + msgval[i].toUpperCase() + " ";
+                selected_radio = $('#form_split input[type=radio]:checked').attr("id");
+                if(selected_radio === "split_words"){ 
+                    output = splitWords(msgval, emoteval);
+                } else if(selected_radio === "split_letters"){
+                    output = splitLetters(msgval, emoteval);
                 }
-                output += emoteval;
+                
                 $("#textout").val(output);
                 $("#textout").focus();
                 $("#textout").select();
