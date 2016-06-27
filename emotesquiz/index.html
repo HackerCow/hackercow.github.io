@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Twitch Emote Quiz</title>
+        <link rel="StyleSheet" href="css/bootstrap.css"/>
+    </head>
+    <body>
+        <div align="center">
+            <h1>Twitch Emote Quiz</h1>
+			<h4>Beta</h4>
+			<br/><br/><br/><br/>
+			<h3>Difficulty:</h3>
+			<form id="diffForm">
+				<input id="diff_ezpz" type="radio" name="difficulty" value="ezpz" checked/><label for="diff_ezpz"> ezpz</label><br />
+				<input id="diff_beginner" type="radio" name="difficulty" value="beginner" /><label for="diff_beginner"> Beginner</label><br />
+				<input id="diff_advanced" type="radio" name="difficulty" value="advanced" /><label for="diff_advanced"> Advanced</label><br />
+				<input id="diff_veteran" type="radio" name="difficulty" value="veteran" /><label for="diff_veteran"> Veteran</label><br />
+				<input id="diff_impossible" type="radio" name="difficulty" value="impossible" /><label for="diff_impossible"> Impossible</label><br />
+			</form>
+			<br/><br/>
+			<button onclick="startGame()">Start</button>
+			<br/><br/><br/>
+        </div>
+		
+        <script src="jquery-2.1.4.min.js"></script>
+		<script>
+			function startGame()
+			{
+				window.location.replace("quiz.html#" +$("input[name=difficulty]:checked", "#diffForm").val());
+			}
+		</script>
+    </body>
+</html>
