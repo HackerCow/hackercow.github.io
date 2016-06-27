@@ -27,7 +27,7 @@
 				<br/><br/><br/>
 				<h3>Results:</h3>
 				<br/><br/>
-				<h4>You guessed <strong><span style="color: red" id="finalscore"></span></strong> out of 10 emotes.</h4>
+				<h4>You guessed <strong><span style="color: red" id="finalscore"></span></strong> out of 10 emotes on "<strong><span style="color: red" id="finalmode"></span></strong>" difficulty.</h4>
 				<br/><br/><br/>
 				<h4><a href="index.html">Go back</a></h4>
 			</div>
@@ -55,9 +55,26 @@
 				}
 			}
 			
+			function getFormalNameForDifficulty()
+			{
+				switch(diff) {
+					case "ezpz":
+						return "ezpz";
+					case "beginner":
+						return "Beginner";
+					case "advanced":
+						return "Advanced";
+					case "veteran":
+						return "Veteran";
+					case "impossible":
+						return "Impossible";
+				}
+			}
+			
 			function showResults()
 			{
 				$("#finalscore").html(sessionStorage.score);
+				$("#finalmode").html(getFormalNameForDifficulty());
 				
 				sessionStorage.score = 0;
 				sessionStorage.round = 1;
@@ -65,7 +82,6 @@
 				
 				$("#game").hide();
 				$("#results").show();
-				
 			}
 			
 			function checkAnswer(answer)
